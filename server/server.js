@@ -2,9 +2,9 @@ const express = require('express');
 const app = express();
 
 app.use(express.json());
+
 // sequelize를 위해서 connecting with model folder 
 const db = require('./models');
-
 
 // Routers
 const postRouter = require('./routes/Posts');
