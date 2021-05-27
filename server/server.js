@@ -1,7 +1,20 @@
-const express = require('express')
-const app = express()
+const express = require('express');
+const app = express();
+
+app.use(express.json());
+// sequelize를 위해서 connecting with model folder 
+const db = require('./models');
 
 
-app.listen(3001, () => {
-    console.log("Server is running on port 3001");
+// Routers
+const postRouter = require('./routes/Posts');
+app.use('/posts', postRouter);
+
+
+// make a table by using sequelize
+db.sequelize.sync().then(() => {
+    app.listen(3001, () => {
+        console.log("Server is running on port 3001");
+    });
 });
+
