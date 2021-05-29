@@ -11,6 +11,7 @@ const postRouter = require('./routes/Posts');
 app.use('/posts', postRouter);
 
 
+
 // make a table by using sequelize
 db.sequelize.sync().then(() => {
     app.listen(3001, () => {
