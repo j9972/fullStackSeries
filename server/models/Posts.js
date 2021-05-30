@@ -13,7 +13,7 @@ module.exports = (sequlize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false,
         },
-    })
+    });
 
     return Posts;
-}
+};
