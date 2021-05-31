@@ -1,6 +1,7 @@
-module.exports = (sequlize, DataTypes) => {
+module.exports = (sequelize, DataTypes) => {
 
-    const Posts = sequlize.define("Post", {
+    // db 이름 Post 가 아닌 Posts라고 해야함 안하면, 다른 메소드에서 undefined가 뜨는 상황이 발생이 많아진다.
+    const Posts = sequelize.define("Posts", {
         title: {
             type: DataTypes.STRING,
             allowNull: false,
