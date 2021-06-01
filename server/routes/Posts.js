@@ -4,14 +4,12 @@ const {Posts} = require('../models');
 // Posts 이게 지금 undefined가 뜬다. + Posts는 객체로 지금 들어가고 있는게 맞음 cuz, create는 앞에 객체가 와야 하므로
 
 
-router.get("/",   (req,res) => {
-    // const listOfPosts = await Posts.findAll();
-    // res.json(listOfPosts);
-    res.json("shit");
-    console.log(Posts);
+router.get("/",   async(req,res) => {
+    const listOfPosts = await Posts.findAll();
+    res.json(listOfPosts);
 })
 
-console.log(Posts);
+//console.log(Posts);
 
 router.post("/",  async(req,res) => {
     const post = req.body;
