@@ -8,6 +8,7 @@ function App() {
     <div className="App">
       <Router>
         <Link to="/createpost"> Create A Post </Link>
+        <Link to="/"> Homepage </Link>
         <Switch>
           <Route path="/" exact component={Home}/>
           <Route path="/createpost" exact component={CreatePost}/>
