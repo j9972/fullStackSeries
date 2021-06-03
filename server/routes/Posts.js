@@ -1,28 +1,38 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const {Posts} = require('../models');
-// Posts 이게 지금 undefined가 뜬다. + Posts는 객체로 지금 들어가고 있는게 맞음 cuz, create는 앞에 객체가 와야 하므로
+const { Posts, Likes } = require("../models");
 
+const { validateToken } = require("../middlewares/AuthMiddleware");
 
-router.get("/",   async(req,res) => {
-    const listOfPosts = await Posts.findAll();
-    res.json(listOfPosts);
-})
+router.get("/", validateToken, async (req, res) => {
+  const listOfPosts = await Posts.findAll({ include: [Likes] });
+  const likedPosts = await Likes.findAll({ where: { UserId: req.user.id } });
+  res.json({ listOfPosts: listOfPosts, likedPosts: likedPosts });
+});
 
 router.get("/byId/:id", async (req, res) => {
-    const id = req.params.id;
-    const post = await Posts.findByPk(id);
-    res.json(post);
+  const id = req.params.id;
+  const post = await Posts.findByPk(id);
+  res.json(post);
 });
 
-router.post("/",  async(req,res) => {
-    const post = req.body;
-    //create없이 그냥 res.json이나 console 찍으면 데이터가 나오는데, create는 테이블에 데이터를 넣는거 같음.
-    await Posts.create(post);
-
-    res.json(post);
+router.post("/", validateToken, async (req, res) => {
+  const post = req.body;
+  post.username = req.user.username;
+  await Posts.create(post);
+  res.json(post);
 });
 
+router.delete("/:postId", validateToken, async (req, res) => {
+  const postId = req.params.postId;
+  await Posts.destroy({
+    where: {
+      id: postId,
+    },
+  });
 
+  res.json("DELETED SUCCESSFULLY");
+});
 
 module.exports = router;
+//create없이 그냥 res.json이나 console 찍으면 데이터가 나오는데, create는 테이블에 데이터를 넣는거 같음.
