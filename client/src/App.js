@@ -40,7 +40,7 @@ function App() {
 
   const logout = () => {
     localStorage.removeItem("accessToken");
-    setAuthState({ username: "", id: 0, status: false });
+    setAuthState({ username: "", id: 0, status: false }); // 로그아웃했을때 "~~님" 이라고 로그인했을때 뜨던것을 같이 지워줌
   };
 
   return (

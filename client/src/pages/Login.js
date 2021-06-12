@@ -22,7 +22,7 @@ function Login() {
           id: response.data.id,
           status: true,
         });
-        history.push("/");
+        history.push("/");    
       }
     });
   };
